@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindWell - Your Mental Wellness Companion</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[var(--bg-main)] text-[var(--text-dark)]">
+
+    <!-- =========== AUTHENTICATION SCREEN =========== -->
+    <div id="auth-screen" class="h-screen w-screen flex items-center justify-center p-4 transition-opacity duration-500">
+        <div class="w-full max-w-md bg-white/80 backdrop-blur-xl rounded-2xl shadow-2xl p-8 text-center">
+            <div class="flex justify-center mb-6">
+                <svg class="h-12 w-12 text-[var(--primary)]" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2.5-6.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm5 0c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm-2.5 4c-2.33 0-4.31-1.46-5.11-3.5h10.22c-.8 2.04-2.78 3.5-5.11 3.5z"/></svg>
+            </div>
+            <h1 class="text-3xl font-bold text-[var(--text-dark)] mb-2">Welcome to MindWell</h1>
+            <p class="text-[var(--text-light)] mb-8">Your personal space for mental wellness.</p>
+            <div id="login-view">
+                <input type="email" placeholder="Email" class="w-full px-4 py-3 mb-4 bg-white/50 border border-[var(--border-color)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition">
+                <input type="password" placeholder="Password" class="w-full px-4 py-3 mb-6 bg-white/50 border border-[var(--border-color)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition">
+                <button id="login-btn" class="w-full py-3 bg-[var(--primary)] text-white font-semibold rounded-lg hover:bg-[var(--primary-light)] transition-transform transform hover:scale-105 shadow-lg">Login</button>
+                <p class="mt-6 text-sm text-[var(--text-light)]">Don't have an account? <a href="#" id="show-signup" class="font-semibold text-[var(--primary)] hover:underline">Sign Up</a></p>
+            </div>
+            <div id="signup-view" class="hidden">
+                 <input type="text" placeholder="Full Name" class="w-full px-4 py-3 mb-4 bg-white/50 border border-[var(--border-color)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition">
+                <input type="email" placeholder="Email" class="w-full px-4 py-3 mb-4 bg-white/50 border border-[var(--border-color)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition">
+                <input type="password" placeholder="Password" class="w-full px-4 py-3 mb-6 bg-white/50 border border-[var(--border-color)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition">
+                <button id="signup-btn" class="w-full py-3 bg-[var(--secondary)] text-white font-semibold rounded-lg hover:opacity-90 transition-transform transform hover:scale-105 shadow-lg">Create Account</button>
+                <p class="mt-6 text-sm text-[var(--text-light)]">Already have an account? <a href="#" id="show-login" class="font-semibold text-[var(--primary)] hover:underline">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========== ONBOARDING SCREEN (Initially Hidden) =========== -->
+    <div id="onboarding-screen" class="h-screen w-screen flex-col p-6 hidden transition-opacity duration-500">
+        <div class="w-full max-w-2xl mx-auto flex-1 flex flex-col">
+            <div class="flex items-center gap-4 mb-8">
+                <button class="onboarding-back-btn p-2 rounded-full hover:bg-white/10"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                <div class="w-full bg-white/20 rounded-full h-2.5"><div id="progress-bar" class="bg-white h-2.5 rounded-full progress-bar-fill" style="width: 25%"></div></div>
+                <button class="onboarding-skip-btn p-2 rounded-full hover:bg-white/10">Skip</button>
+            </div>
+            <div class="flex-1 relative">
+                <div id="step-1" class="onboarding-step w-full"><h2 class="text-3xl font-bold mb-6 text-center">What are your main goals?</h2><div class="space-y-3"><div class="goal-option p-4 rounded-lg cursor-pointer flex items-center gap-4">Improve sleep</div><div class="goal-option p-4 rounded-lg cursor-pointer flex items-center gap-4">Reduce stress</div><div class="goal-option p-4 rounded-lg cursor-pointer flex items-center gap-4">Stop worrying</div><div class="goal-option p-4 rounded-lg cursor-pointer flex items-center gap-4">Feel happier</div><div class="goal-option p-4 rounded-lg cursor-pointer flex items-center gap-4">Boost self-esteem</div></div></div>
+                <div id="step-2" class="onboarding-step w-full hidden"><h2 class="text-3xl font-bold mb-6 text-center">Anything else to achieve?</h2><div class="space-y-3"><div class="goal-option p-4 rounded-lg cursor-pointer flex items-center gap-4">Cope with childhood trauma</div><div class="goal-option p-4 rounded-lg cursor-pointer flex items-center gap-4">Quit a bad habit</div><div class="goal-option p-4 rounded-lg cursor-pointer flex items-center gap-4">Self-reflection</div><div class="goal-option p-4 rounded-lg cursor-pointer flex items-center gap-4">Manage overeating</div></div></div>
+                <div id="step-3" class="onboarding-step w-full hidden"><h2 class="text-3xl font-bold mb-6 text-center">What content do you prefer?</h2><div class="space-y-3"><div class="goal-option p-4 rounded-lg cursor-pointer flex items-center gap-4">Meditation courses</div><div class="goal-option p-4 rounded-lg cursor-pointer flex items-center gap-4">Relaxing sounds</div><div class="goal-option p-4 rounded-lg cursor-pointer flex items-center gap-4">Breathing exercises</div><div class="goal-option p-4 rounded-lg cursor-pointer flex items-center gap-4">Sleep practices</div></div></div>
+                <div id="step-4" class="onboarding-step w-full hidden"><h2 class="text-3xl font-bold mb-6 text-center">Have you tried meditation?</h2><div class="space-y-3"><div class="goal-option p-4 rounded-lg cursor-pointer flex items-center gap-4">Yes, I have experience</div><div class="goal-option p-4 rounded-lg cursor-pointer flex items-center gap-4">Yes, but I would like to learn more</div><div class="goal-option p-4 rounded-lg cursor-pointer flex items-center gap-4">Yes, a long time ago</div><div class="goal-option p-4 rounded-lg cursor-pointer flex items-center gap-4">No, I have never tried meditation</div></div></div>
+            </div>
+            <button class="onboarding-next-btn w-full mt-8 py-3 bg-[var(--primary)] text-white font-semibold rounded-lg hover:bg-[var(--primary-light)] transition-transform transform hover:scale-105 shadow-lg">Next</button>
+        </div>
+    </div>
+
+    <!-- =========== MAIN APP (Initially Hidden) =========== -->
+    <div id="app" class="min-h-screen md:flex hidden">
+        <aside class="bg-[var(--bg-secondary)] md:w-72 p-4 md:p-6 border-b md:border-r border-[var(--border-color)] flex-shrink-0 flex flex-col">
+            <div class="flex items-center mb-10">
+                <svg class="h-10 w-10 text-[var(--primary)]" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2.5-6.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm5 0c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zm-2.5 4c-2.33 0-4.31-1.46-5.11-3.5h10.22c-.8 2.04-2.78 3.5-5.11 3.5z"/></svg>
+                <h1 class="text-2xl font-bold text-[var(--text-dark)] ml-2">MindWell</h1>
+            </div>
+            <nav class="space-y-1 flex-1">
+                <a href="#home" class="nav-link flex items-center px-4 py-3 text-[var(--text-light)] hover:bg-purple-50 hover:text-[var(--primary)] rounded-lg transition-colors duration-200"><svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Home</a>
+                <a href="#journal" class="nav-link flex items-center px-4 py-3 text-[var(--text-light)] hover:bg-purple-50 hover:text-[var(--primary)] rounded-lg transition-colors duration-200"><svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v11.494m-5.75-8.994l11.5 0M4.25 12.752h15.5"/></svg>Journal</a>
+                <a href="#appointments" class="nav-link flex items-center px-4 py-3 text-[var(--text-light)] hover:bg-purple-50 hover:text-[var(--primary)] rounded-lg transition-colors duration-200"><svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>Appointments</a>
+                <a href="#community" class="nav-link flex items-center px-4 py-3 text-[var(--text-light)] hover:bg-purple-50 hover:text-[var(--primary)] rounded-lg transition-colors duration-200"><svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>Community</a>
+                <a href="#consultations" class="nav-link flex items-center px-4 py-3 text-[var(--text-light)] hover:bg-purple-50 hover:text-[var(--primary)] rounded-lg transition-colors duration-200"><svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2V7a2 2 0 012-2h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 01.293.707V8z"/></svg>Consultations</a>
+                <a href="#events" class="nav-link flex items-center px-4 py-3 text-[var(--text-light)] hover:bg-purple-50 hover:text-[var(--primary)] rounded-lg transition-colors duration-200"><svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>Events</a>
+                <a href="#sleep" class="nav-link flex items-center px-4 py-3 text-[var(--text-light)] hover:bg-purple-50 hover:text-[var(--primary)] rounded-lg transition-colors duration-200"><svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>Sleep</a>
+                <a href="#techniques" class="nav-link flex items-center px-4 py-3 text-[var(--text-light)] hover:bg-purple-50 hover:text-[var(--primary)] rounded-lg transition-colors duration-200"><svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>Techniques</a>
+                <a href="#sounds" class="nav-link flex items-center px-4 py-3 text-[var(--text-light)] hover:bg-purple-50 hover:text-[var(--primary)] rounded-lg transition-colors duration-200"><svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.636 5.636a9 9 0 0112.728 0m-12.728 0A9 9 0 015.636 5.636m12.728 12.728A9 9 0 015.636 18.364m12.728 0l-2.829-2.829"/></svg>Sounds</a>
+                <a href="#fitness" class="nav-link flex items-center px-4 py-3 text-[var(--text-light)] hover:bg-purple-50 hover:text-[var(--primary)] rounded-lg transition-colors duration-200"><svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>Fitness</a>
+                <a href="#meditation" class="nav-link flex items-center px-4 py-3 text-[var(--text-light)] hover:bg-purple-50 hover:text-[var(--primary)] rounded-lg transition-colors duration-200"><svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>Meditation</a>
+                <a href="#help" class="nav-link flex items-center px-4 py-3 text-[var(--text-light)] hover:bg-purple-50 hover:text-[var(--primary)] rounded-lg transition-colors duration-200"><svg class="h-5 w-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.79 4 4s-1.79 4-4 4c-1.742 0-3.223-.835-3.772-2M12 18.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path></svg>Help</a>
+            </nav>
+            <div class="mt-auto p-3 bg-gray-50 rounded-lg">
+                <a href="#profile" class="nav-link flex items-center">
+                    <img src="https://placehold.co/40x40/9277FF/FFFFFF?text=A" alt="User Avatar" class="w-10 h-10 rounded-full">
+                    <div class="ml-3">
+                        <p class="font-semibold text-sm text-[var(--text-dark)]">Alex Turner</p>
+                        <p class="text-xs text-[var(--text-light)]">View Profile</p>
+                    </div>
+                </a>
+            </div>
+        </aside>
+        <main class="flex-1 p-4 sm:p-6 md:p-8 overflow-y-auto">
+             <!-- Home Screen -->
+            <div id="home" class="screen">
+                <h2 class="text-3xl font-bold text-[var(--text-dark)] mb-2">Good Evening, Alex!</h2>
+                <p class="text-[var(--text-light)] mb-8">Here is your personalized plan for today.</p>
+                <div class="bg-white p-6 rounded-2xl shadow-lg mb-8">
+                    <h3 class="font-semibold text-lg text-gray-700 mb-4">How are you feeling right now?</h3>
+                    <div class="flex flex-wrap justify-around gap-4">
+                        <button class="mood-btn flex flex-col items-center space-y-2 p-3 rounded-lg hover:bg-gray-100 transition-transform transform hover:scale-110 w-24"><span class="text-5xl">😊</span><span class="font-medium text-sm text-gray-600">Happy</span></button>
+                        <button class="mood-btn flex flex-col items-center space-y-2 p-3 rounded-lg hover:bg-gray-100 transition-transform transform hover:scale-110 w-24"><span class="text-5xl">🙂</span><span class="font-medium text-sm text-gray-600">Okay</span></button>
+                        <button class="mood-btn flex flex-col items-center space-y-2 p-3 rounded-lg hover:bg-gray-100 transition-transform transform hover:scale-110 w-24"><span class="text-5xl">😔</span><span class="font-medium text-sm text-gray-600">Sad</span></button>
+                        <button class="mood-btn flex flex-col items-center space-y-2 p-3 rounded-lg hover:bg-gray-100 transition-transform transform hover:scale-110 w-24"><span class="text-5xl">😟</span><span class="font-medium text-sm text-gray-600">Anxious</span></button>
+                        <button class="mood-btn flex flex-col items-center space-y-2 p-3 rounded-lg hover:bg-gray-100 transition-transform transform hover:scale-110 w-24"><span class="text-5xl">😡</span><span class="font-medium text-sm text-gray-600">Angry</span></button>
+                    </div>
+                    <p id="mood-confirmation" class="text-center text-green-600 font-medium mt-4 h-5"></p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <h3 class="font-semibold text-lg text-gray-700 mb-4">Your Daily Goals</h3>
+                    <div class="space-y-4">
+                        <label class="flex items-center p-4 bg-purple-50 rounded-lg hover:bg-purple-100 cursor-pointer transition"><input type="checkbox" class="goal-checkbox h-5 w-5 rounded border-gray-300 text-[var(--primary)] focus:ring-[var(--primary)] mr-4"><span class="text-gray-700 font-medium">Meditate for 5 minutes</span></label>
+                        <label class="flex items-center p-4 bg-teal-50 rounded-lg hover:bg-teal-100 cursor-pointer transition"><input type="checkbox" class="goal-checkbox h-5 w-5 rounded border-gray-300 text-[var(--secondary)] focus:ring-[var(--secondary)] mr-4"><span class="text-gray-700 font-medium">Write a short journal entry</span></label>
+                        <label class="flex items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 cursor-pointer transition"><input type="checkbox" class="goal-checkbox h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mr-4"><span class="text-gray-700 font-medium">Listen to a calming soundscape</span></label>
+                         <label class="flex items-center p-4 bg-green-50 rounded-lg hover:bg-green-100 cursor-pointer transition"><input type="checkbox" class="goal-checkbox h-5 w-5 rounded border-gray-300 text-green-600 focus:ring-green-500 mr-4"><span class="text-gray-700 font-medium">Do a 10-minute stretching routine</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Screen -->
+            <div id="profile" class="screen hidden">
+                <h2 class="text-3xl font-bold text-[var(--text-dark)] mb-8">My Profile</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-1 bg-white p-6 rounded-2xl shadow-lg text-center">
+                        <img src="https://placehold.co/120x120/9277FF/FFFFFF?text=A" alt="User Avatar" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-md">
+                        <h3 class="text-2xl font-bold text-[var(--text-dark)]">Alex Turner</h3>
+                        <p class="text-[var(--text-light)]">alex.turner@example.com</p>
+                        <button id="logout-btn-profile" class="mt-6 w-full py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition">Logout</button>
+                    </div>
+                    <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-lg">
+                        <h3 class="font-semibold text-lg text-gray-700 mb-4">My Progress</h3>
+                        <div class="grid grid-cols-2 gap-4 text-center">
+                            <div class="bg-gray-50 p-4 rounded-lg"><p class="text-3xl font-bold text-[var(--primary)]">15</p><p class="text-sm text-[var(--text-light)]">Days Streak</p></div>
+                            <div class="bg-gray-50 p-4 rounded-lg"><p class="text-3xl font-bold text-[var(--secondary)]">32</p><p class="text-sm text-[var(--text-light)]">Journal Entries</p></div>
+                        </div>
+                        <h3 class="font-semibold text-lg text-gray-700 mt-8 mb-4">Settings</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg"><span>Enable Notifications</span><label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" value="" class="sr-only peer" checked><div class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div></label></div>
+                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg"><span>Dark Mode</span><label class="relative inline-flex items-center cursor-pointer"><input type="checkbox" value="" class="sr-only peer"><div class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div></label></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appointments Screen -->
+            <div id="appointments" class="screen hidden">
+                <h2 class="text-3xl font-bold text-[var(--text-dark)] mb-2">My Appointments</h2>
+                <p class="text-[var(--text-light)] mb-8">Manage your therapy sessions.</p>
+                <div class="bg-white p-4 rounded-xl shadow-lg">
+                    <div class="flex border-b border-[var(--border-color)]">
+                        <button data-tab="upcoming" class="tab-button flex-1 p-3 font-semibold text-[var(--text-light)] transition-colors active">Upcoming</button>
+                        <button data-tab="past" class="tab-button flex-1 p-3 font-semibold text-[var(--text-light)] transition-colors">Past</button>
+                    </div>
+                    <div id="upcoming" class="tab-content py-4 space-y-4">
+                        <div class="p-4 bg-gray-50 rounded-lg flex items-center justify-between">
+                            <div>
+                                <p class="font-bold text-[var(--text-dark)]">Dr. Emily Carter</p>
+                                <p class="text-sm text-[var(--text-light)]">August 12, 2025 at 2:00 PM</p>
+                            </div>
+                            <a href="#" class="text-sm font-semibold text-[var(--primary)] hover:underline">Join Call</a>
+                        </div>
+                    </div>
+                    <div id="past" class="tab-content py-4 space-y-4 hidden">
+                        <div class="p-4 bg-gray-50 rounded-lg flex items-center justify-between opacity-70">
+                            <div>
+                                <p class="font-bold text-[var(--text-dark)]">Dr. Emily Carter</p>
+                                <p class="text-sm text-[var(--text-light)]">August 5, 2025 at 2:00 PM</p>
+                            </div>
+                            <span class="text-sm font-semibold text-gray-500">Completed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community Screen -->
+            <div id="community" class="screen hidden">
+                <h2 class="text-3xl font-bold text-[var(--text-dark)] mb-2">Community Groups</h2>
+                <p class="text-[var(--text-light)] mb-8">Connect with others on a similar journey.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow transform hover:-translate-y-1 cursor-pointer">
+                        <h3 class="font-bold text-lg text-[var(--primary)]">Anxiety Support Group</h3>
+                        <p class="text-sm text-[var(--text-light)] mt-1">A safe space to share experiences and coping strategies for anxiety.</p>
+                        <p class="text-sm font-semibold text-gray-500 mt-3">1,204 members</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow transform hover:-translate-y-1 cursor-pointer">
+                        <h3 class="font-bold text-lg text-[var(--secondary)]">Mindful Living</h3>
+                        <p class="text-sm text-[var(--text-light)] mt-1">Discuss mindfulness, meditation, and living in the present moment.</p>
+                        <p class="text-sm font-semibold text-gray-500 mt-3">876 members</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Help Screen -->
+            <div id="help" class="screen hidden">
+                <h2 class="text-3xl font-bold text-[var(--text-dark)] mb-2">Help Center</h2>
+                <p class="text-[var(--text-light)] mb-8">Find answers and get support.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-lg">
+                        <h3 class="font-bold text-lg mb-4">Frequently Asked Questions</h3>
+                        <div class="space-y-2">
+                            <a href="#" class="block text-[var(--primary)] hover:underline">How do I book a session?</a>
+                            <a href="#" class="block text-[var(--primary)] hover:underline">How is my data protected?</a>
+                            <a href="#" class="block text-[var(--primary)] hover:underline">Can I cancel my subscription?</a>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg">
+                        <h3 class="font-bold text-lg mb-4">Contact Support</h3>
+                        <p class="text-[var(--text-light)] mb-4">If you can't find an answer, reach out to us.</p>
+                        <button class="w-full py-2 bg-[var(--primary)] text-white font-semibold rounded-lg hover:bg-[var(--primary-light)] transition">Open Support Chat</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Journal Screen -->
+            <div id="journal" class="screen hidden">
+                <h2 class="text-3xl font-bold text-[var(--text-dark)] mb-2">My Journal</h2>
+                <p class="text-[var(--text-light)] mb-8">A private space to reflect and grow.</p>
+                <div class="bg-white p-6 rounded-2xl shadow-lg mb-8">
+                    <h3 class="font-semibold text-lg text-gray-700 mb-4">New Entry for August 8, 2025</h3>
+                    <textarea class="w-full h-48 p-4 border border-[var(--border-color)] rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] transition" placeholder="What's on your mind today?"></textarea>
+                    <button class="mt-4 px-6 py-3 bg-[var(--primary)] text-white font-semibold rounded-lg hover:bg-[var(--primary-light)] transition shadow-md">Save Entry</button>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <h3 class="font-semibold text-lg text-gray-700 mb-4">Past Entries</h3>
+                    <div class="space-y-4">
+                        <div class="border-b border-[var(--border-color)] pb-4"><p class="font-semibold text-gray-600 flex items-center">August 7, 2025 <span class="ml-3 text-2xl">🙂</span></p><p class="text-[var(--text-light)] mt-1">Felt a bit overwhelmed today, but I took a walk and it really helped clear my head.</p></div>
+                        <div class="border-b border-[var(--border-color)] pb-4"><p class="font-semibold text-gray-600 flex items-center">August 6, 2025 <span class="ml-3 text-2xl">😊</span></p><p class="text-[var(--text-light)] mt-1">Had a really productive day at work. Felt good to accomplish so much.</p></div>
+                        <div class="pb-4"><p class="font-semibold text-gray-600 flex items-center">August 5, 2025 <span class="ml-3 text-2xl">😟</span></p><p class="text-[var(--text-light)] mt-1">Feeling anxious about the upcoming presentation. I'll try to prepare more.</p></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Consultations Screen -->
+            <div id="consultations" class="screen hidden">
+                <h2 class="text-3xl font-bold text-[var(--text-dark)] mb-2">Professional Consultations</h2>
+                <p class="text-[var(--text-light)] mb-8">Connect with licensed therapists and psychiatrists.</p>
+                <div class="flex space-x-2 mb-6 border-b border-gray-200">
+                    <button data-filter="all" class="filter-button px-4 py-2 font-semibold text-gray-600 border-b-2 border-transparent hover:border-purple-500 hover:text-purple-500 active">All</button>
+                    <button data-filter="therapist" class="filter-button px-4 py-2 font-semibold text-gray-600 border-b-2 border-transparent hover:border-purple-500 hover:text-purple-500">Therapists</button>
+                    <button data-filter="psychiatrist" class="filter-button px-4 py-2 font-semibold text-gray-600 border-b-2 border-transparent hover:border-purple-500 hover:text-purple-500">Psychiatrists</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="professional-card bg-white p-6 rounded-2xl shadow-lg text-center flex flex-col" data-type="therapist">
+                        <img src="https://placehold.co/100x100/E2E8F0/4A5568?text=Dr.E" alt="Therapist" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-purple-200">
+                        <h3 class="font-bold text-lg text-[var(--text-dark)]">Dr. Emily Carter</h3>
+                        <p class="text-[var(--primary)] font-medium text-sm mb-3">Therapist (CBT)</p>
+                        <p class="text-[var(--text-light)] text-sm flex-1 mb-4">Specializes in anxiety, stress management, and building self-esteem.</p>
+                        <button class="mt-auto w-full py-2 bg-[var(--primary)] text-white font-semibold rounded-lg hover:bg-[var(--primary-light)] transition">Book Session</button>
+                    </div>
+                    <div class="professional-card bg-white p-6 rounded-2xl shadow-lg text-center flex flex-col" data-type="psychiatrist">
+                        <img src="https://placehold.co/100x100/E2E8F0/4A5568?text=Dr.D" alt="Psychiatrist" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-red-200">
+                        <h3 class="font-bold text-lg text-[var(--text-dark)]">Dr. David Chen</h3>
+                        <p class="text-red-500 font-medium text-sm mb-3">Psychiatrist (MD)</p>
+                        <p class="text-[var(--text-light)] text-sm flex-1 mb-4">Medical doctor specializing in diagnosis and medication management.</p>
+                        <button class="mt-auto w-full py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition">Book Consultation</button>
+                    </div>
+                    <div class="professional-card bg-white p-6 rounded-2xl shadow-lg text-center flex flex-col" data-type="therapist">
+                        <img src="https://placehold.co/100x100/E2E8F0/4A5568?text=Dr.R" alt="Therapist" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-teal-200">
+                        <h3 class="font-bold text-lg text-[var(--text-dark)]">Dr. Raj Patel</h3>
+                        <p class="text-[var(--secondary)] font-medium text-sm mb-3">Therapist (Mindfulness-Based)</p>
+                        <p class="text-[var(--text-light)] text-sm flex-1 mb-4">Focuses on depression, trauma, and improving relationships.</p>
+                        <button class="mt-auto w-full py-2 bg-[var(--secondary)] text-white font-semibold rounded-lg hover:opacity-90 transition">Book Session</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Events Screen -->
+            <div id="events" class="screen hidden">
+                <h2 class="text-3xl font-bold text-[var(--text-dark)] mb-2">Events & Talks</h2>
+                <p class="text-[var(--text-light)] mb-8">Join our community for insightful workshops and discussions.</p>
+                
+                <h3 class="font-bold text-xl text-[var(--text-dark)] mb-4">Webinars For You</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                     <div class="bg-white p-6 rounded-2xl shadow-lg">
+                        <span class="text-sm font-semibold text-purple-600 bg-purple-100 px-2 py-1 rounded-full">Recommended</span>
+                        <h3 class="font-bold text-lg text-[var(--text-dark)] mt-2">Webinar: Taming the Anxious Mind</h3>
+                        <p class="text-[var(--text-light)] text-sm mt-1">Actionable strategies for managing anxiety and worry.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg">
+                        <span class="text-sm font-semibold text-purple-600 bg-purple-100 px-2 py-1 rounded-full">Recommended</span>
+                        <h3 class="font-bold text-lg text-[var(--text-dark)] mt-2">Webinar: The Path to Better Sleep</h3>
+                        <p class="text-[var(--text-light)] text-sm mt-1">Learn science-backed techniques for a more restful night.</p>
+                    </div>
+                </div>
+
+                <h3 class="font-bold text-xl text-[var(--text-dark)] mb-4">All Upcoming Events</h3>
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col md:flex-row items-center gap-6">
+                        <div class="w-full md:w-1/4"><div class="bg-teal-100 text-teal-800 rounded-lg p-4 text-center"><p class="text-sm">AUG</p><p class="font-bold text-4xl">15</p><p class="text-sm">7:00 PM</p></div></div>
+                        <div class="flex-1"><span class="text-sm font-semibold text-teal-600 bg-teal-100 px-2 py-1 rounded-full">Online Workshop</span><h3 class="font-bold text-xl text-[var(--text-dark)] mt-2">Mindful Mondays: Intro to Meditation</h3><p class="text-[var(--text-light)] text-sm mt-1">Learn the basics of mindfulness and start your own practice in this beginner-friendly session.</p></div>
+                        <button class="w-full md:w-auto py-2 px-5 bg-[var(--secondary)] text-white font-semibold rounded-lg hover:opacity-90 transition">Register Now</button>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col md:flex-row items-center gap-6">
+                        <div class="w-full md:w-1/4"><div class="bg-purple-100 text-purple-800 rounded-lg p-4 text-center"><p class="text-sm">AUG</p><p class="font-bold text-4xl">22</p><p class="text-sm">6:30 PM</p></div></div>
+                        <div class="flex-1"><span class="text-sm font-semibold text-purple-600 bg-purple-100 px-2 py-1 rounded-full">Expert Talk</span><h3 class="font-bold text-xl text-[var(--text-dark)] mt-2">The Science of Happiness</h3><p class="text-[var(--text-light)] text-sm mt-1">Join Dr. Emily Carter as she discusses actionable strategies to boost your well-being.</p></div>
+                        <button class="w-full md:w-auto py-2 px-5 bg-[var(--primary)] text-white font-semibold rounded-lg hover:bg-[var(--primary-light)] transition">Learn More</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sleep Screen -->
+            <div id="sleep" class="screen hidden">
+                <h2 class="text-3xl font-bold text-[var(--text-dark)] mb-2">Sleep Better</h2>
+                <p class="text-[var(--text-light)] mb-8">Tools and tips for a restful night.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-lg">
+                        <h3 class="font-semibold text-lg text-gray-800 mb-2">Wind-Down Routine</h3>
+                        <p class="text-[var(--text-light)] mb-4">Create a calming pre-sleep ritual.</p>
+                        <ul class="space-y-2 list-disc list-inside text-[var(--text-light)]">
+                            <li>Avoid screens 1 hour before bed.</li>
+                            <li>Read a book or listen to calm music.</li>
+                            <li>Drink a cup of herbal tea.</li>
+                            <li>Do some light stretching.</li>
+                        </ul>
+                    </div>
+                    <a href="#sounds" class="nav-link-from-card bg-gradient-to-br from-blue-400 to-purple-500 text-white p-6 rounded-2xl shadow-lg flex flex-col justify-center items-center text-center hover:shadow-xl transition-shadow transform hover:-translate-y-1">
+                        <h3 class="font-bold text-2xl mb-2">Sleep Soundscapes</h3>
+                        <p>Listen to calming sounds designed to help you drift off to sleep.</p>
+                        <p class="mt-4 font-semibold">Explore Sounds →</p>
+                    </a>
+                    <div class="md:col-span-2 bg-white p-6 rounded-2xl shadow-lg">
+                        <h3 class="font-semibold text-lg text-gray-800 mb-2">Sleep Story: The Whispering Forest</h3>
+                        <p class="text-[var(--text-light)]">A short, calming story to ease your mind. (Feature coming soon)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Techniques Screen -->
+            <div id="techniques" class="screen hidden">
+                <h2 class="text-3xl font-bold text-[var(--text-dark)] mb-2">Techniques</h2>
+                <p class="text-[var(--text-light)] mb-8">Find strategies to navigate difficult emotions.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow transform hover:-translate-y-1"><h3 class="font-semibold text-lg text-orange-600 mb-2">Overcome Stress</h3><p class="text-[var(--text-light)]">Techniques like the 4-7-8 breathing and progressive muscle relaxation.</p></div>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow transform hover:-translate-y-1"><h3 class="font-semibold text-lg text-blue-600 mb-2">Manage Anxiety</h3><p class="text-[var(--text-light)]">Use grounding techniques and challenge negative thoughts.</p></div>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow transform hover:-translate-y-1"><h3 class="font-semibold text-lg text-indigo-600 mb-2">Lift Depression</h3><p class="text-[var(--text-light)]">Focus on behavioral activation and scheduling positive activities.</p></div>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow transform hover:-translate-y-1"><h3 class="font-semibold text-lg text-red-600 mb-2">Handle Anger</h3><p class="text-[var(--text-light)]">Practice taking a timeout and using "I" statements to communicate.</p></div>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow transform hover:-translate-y-1"><h3 class="font-semibold text-lg text-gray-600 mb-2">Ease Sadness</h3><p class="text-[var(--text-light)]">Engage in self-compassion and connect with loved ones.</p></div>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow transform hover:-translate-y-1"><h3 class="font-semibold text-lg text-yellow-600 mb-2">Reduce Worry</h3><p class="text-[var(--text-light)]">Set aside a "worry time" and practice mindfulness.</p></div>
+                </div>
+            </div>
+
+            <!-- Soothing Sounds Screen -->
+            <div id="sounds" class="screen hidden">
+                <h2 class="text-3xl font-bold text-[var(--text-dark)] mb-2">Relaxing Sounds</h2>
+                <p class="text-[var(--text-light)] mb-8">Select a soundscape to focus, relax, or sleep.</p>
+                <div class="flex flex-col lg:flex-row gap-6">
+                    <div class="lg:w-1/3 bg-white p-6 rounded-2xl shadow-lg flex flex-col items-center text-center">
+                        <div class="w-32 h-32 rounded-full bg-gradient-to-br from-teal-200 to-cyan-300 flex items-center justify-center mb-4">
+                            <svg id="player-icon" class="h-16 w-16 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/></svg>
+                        </div>
+                        <h3 id="now-playing" class="font-bold text-xl text-[var(--text-dark)]">Select a Sound</h3>
+                        <p id="player-status" class="text-[var(--text-light)]">Paused</p>
+                        <div class="w-full bg-gray-200 rounded-full h-1.5 mt-6"><div class="bg-[var(--secondary)] h-1.5 rounded-full w-1/4"></div></div>
+                    </div>
+                    <div class="lg:w-2/3 bg-white p-6 rounded-2xl shadow-lg">
+                        <div class="space-y-3">
+                            <div class="sound-card flex items-center p-4 border-l-4 border-transparent rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                                <svg class="h-8 w-8 text-[var(--secondary)] mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+                                <div><h4 class="font-semibold">Forest Ambience</h4><p class="text-sm text-[var(--text-light)]">Gentle breeze and birdsong.</p></div>
+                            </div>
+                            <div class="sound-card flex items-center p-4 border-l-4 border-transparent rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                                <svg class="h-8 w-8 text-[var(--secondary)] mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+                                <div><h4 class="font-semibold">Gentle Rainfall</h4><p class="text-sm text-[var(--text-light)]">Soothing rain on a window pane.</p></div>
+                            </div>
+                            <div class="sound-card flex items-center p-4 border-l-4 border-transparent rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                                <svg class="h-8 w-8 text-[var(--secondary)] mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg>
+                                <div><h4 class="font-semibold">Ocean Waves</h4><p class="text-sm text-[var(--text-light)]">Calm waves washing ashore.</p></div>
+                            </div>
+                             <div class="sound-card flex items-center p-4 border-l-4 border-transparent rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                                <svg class="h-8 w-8 text-[var(--secondary)] mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                                <div><h4 class="font-semibold">Cozy Cafe</h4><p class="text-sm text-[var(--text-light)]">Low chatter and coffee shop sounds.</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fitness Screen -->
+            <div id="fitness" class="screen hidden">
+                <h2 class="text-3xl font-bold text-[var(--text-dark)] mb-2">Health & Fitness</h2>
+                <p class="text-[var(--text-light)] mb-8">Simple activities to boost your mood and energy.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-lg"><h3 class="font-semibold text-lg text-green-600 mb-2">Morning Stretch</h3><p class="text-[var(--text-light)]">A 10-minute routine to wake up your body.</p></div>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg"><h3 class="font-semibold text-lg text-rose-600 mb-2">Quick Cardio Burst</h3><p class="text-[var(--text-light)]">A 5-minute heart-pumping workout.</p></div>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg"><h3 class="font-semibold text-lg text-sky-600 mb-2">Mindful Walk</h3><p class="text-[var(--text-light)]">Pay attention to your surroundings on a 15-minute walk.</p></div>
+                </div>
+            </div>
+
+            <!-- Meditation Screen -->
+            <div id="meditation" class="screen hidden">
+                <h2 class="text-3xl font-bold text-[var(--text-dark)] mb-2">Meditation & Mindfulness</h2>
+                <p class="text-[var(--text-light)] mb-8">Engage in guided exercises to calm your mind.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-lg">
+                        <h3 class="font-semibold text-lg text-gray-800 mb-2">Box Breathing</h3>
+                        <p class="text-[var(--text-light)] mb-6">A simple technique to calm your nervous system.</p>
+                        <div class="flex flex-col items-center justify-center bg-purple-50 p-8 rounded-lg">
+                            <div class="w-32 h-32 bg-[var(--primary)] rounded-lg breathing-circle"></div>
+                            <p class="mt-6 text-xl font-semibold text-[var(--primary)] breathing-text"></p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg">
+                        <h3 class="font-semibold text-lg text-gray-800 mb-2">5-4-3-2-1 Grounding</h3>
+                        <p class="text-[var(--text-light)] mb-4">Use your five senses to return to the present.</p>
+                        <ul class="space-y-3 list-inside">
+                            <li class="p-3 bg-gray-50 rounded-lg"><strong class="font-semibold text-gray-700">5</strong> things you can see</li>
+                            <li class="p-3 bg-gray-50 rounded-lg"><strong class="font-semibold text-gray-700">4</strong> things you can feel</li>
+                            <li class="p-3 bg-gray-50 rounded-lg"><strong class="font-semibold text-gray-700">3</strong> things you can hear</li>
+                            <li class="p-3 bg-gray-50 rounded-lg"><strong class="font-semibold text-gray-700">2</strong> things you can smell</li>
+                            <li class="p-3 bg-gray-50 rounded-lg"><strong class="font-semibold text-gray-700">1</strong> thing you can taste</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
+
